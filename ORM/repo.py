@@ -1,0 +1,1 @@
+# Implementar consultas sql SELECT y DELETE
