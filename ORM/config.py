@@ -11,7 +11,7 @@ URL_BASE_DATOS = "postgresql://usuario-ejemplo:prest@localhost:5432/alumnos"
 # 2.- conectarse con create_engine al esquema "app" (=app)
 engine= create_engine(URL_BASE_DATOS,
                       connect_args={
-                          "options":"-csearch_path= app"  # -csearch_path= Nombre del Esquema
+                          "options":"-csearch_path=app"  # -csearch_path=Nombre del Esquema
                       })
 
 

@@ -17,7 +17,6 @@ from typing import Optional # para hacer que los argumentos señalados sean opci
 from ORM.config import generador_sesion # generador de sesiones 
 import ORM.repo as repo # funciones para hacer consultas a la BD del archivo repo.py
 from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
-from sqlalchemy import and_ # para utilizar operador and al hacer querys
 
 
 # conda create --name prest               --> Para crear ambiente
@@ -48,7 +47,11 @@ def hola_mundo():
 
 #########################
 
-
+# Peticion get("/alumnos”)
+@app.get("/alumnos")
+def lista_alumnos(sesion:Session=Depends(generador_sesion)):
+    print("SELECT * FROM app.alumnos")
+    return repo.devuelve_alumnos(sesion)
 
 
 

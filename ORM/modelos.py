@@ -1,6 +1,6 @@
 # Mapear clases
 from ORM.config import BaseClass # traer del archivo config.py la clase BaseClass (declarative_base) para poder mapear las tablas
-from sqlalchemy import column, String, Integer, DateTime, ForeignKey, Float # traer los tipos de dato que usa sqlalchemy
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Float # traer los tipos de dato que usa sqlalchemy
 import datetime # para calcular la hora actual del pc, porque la columna fecha_registro de la tabla alumnos es de tipo TIMESTAMP WITH TIME ZONE
 
 
@@ -21,15 +21,15 @@ import datetime # para calcular la hora actual del pc, porque la columna fecha_r
 # Tabla alumnos
 class Alumno(BaseClass):
     __tablename__= "alumnos"
-    id= column(Integer, primary_key= True)
-    nombre= column(String(100))
-    edad= column(Integer)
-    domicilio= column(String(100))
-    carrera= column(String(100))
-    trimestre= column(String(100))
-    email= column("email",String(100)) 
-    password= column(String(100))
-    fecha_registro= column(DateTime(timezone=True)), default= datetime.datetime.now   
+    id= Column(Integer, primary_key= True)
+    nombre= Column(String(100))
+    edad= Column(Integer)
+    domicilio= Column(String(100))
+    carrera= Column(String(100))
+    trimestre= Column(String(100))
+    email= Column("email",String(100)) 
+    password= Column(String(100))
+    fecha_registro= Column(DateTime(timezone=True), default= datetime.datetime.now)   
 
 
 
@@ -37,10 +37,10 @@ class Alumno(BaseClass):
 # Tabla calificaciones
 class Calificacion(BaseClass):
     __tablename__= "calificaciones" 
-    id= column(Integer, primary_key= True)
-    id_alumno= column(Integer, ForeignKey(Alumno.id)) # indica que es llave foranea de la tabla Alumno y es el id
-    uea= column(String(100))
-    calificacion= column(String(100))
+    id= Column(Integer, primary_key= True)
+    id_alumno= Column(Integer, ForeignKey(Alumno.id)) # indica que es llave foranea de la tabla Alumno y es el id
+    uea= Column(String(100))
+    calificacion= Column(String(100))
 
 
 
@@ -48,9 +48,9 @@ class Calificacion(BaseClass):
 # Tabla fotos
 class Foto(BaseClass):
     __tablename__= "fotos"
-    id= column(Integer, primary_key=True)
-    id_alumno= column(Integer, ForeignKey(Alumno.id)) # indica que es llave foranea de la tabla Alumno y es el id
-    titulo= column(String(100))
-    descripcion= column(String(100))
-    ruta= column(String(100)) 
+    id= Column(Integer, primary_key=True)
+    id_alumno= Column(Integer, ForeignKey(Alumno.id)) # indica que es llave foranea de la tabla Alumno y es el id
+    titulo= Column(String(100))
+    descripcion= Column(String(100))
+    ruta= Column(String(100)) 
 
