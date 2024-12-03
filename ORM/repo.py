@@ -1,8 +1,7 @@
 # Implementar consultas sql SELECT y DELETE
 
-
-# SELECT * FROM app.alumnos
-# SELECT * FROM app.alumnos WHERE id={id_al}
+## SELECT * FROM app.alumnos
+## SELECT * FROM app.alumnos WHERE id={id_al}
 # SELECT * FROM app.fotos
 # SELECT * FROM app.fotos WHERE id={id_fo}
 # SELECT * FROM app.fotos WHERE id_alumno={id_al}
@@ -29,7 +28,7 @@ from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
 
 
 
-
+# En las funciones, primero va el argumento sesion y luego los de consulta por ejemplo, el id
 
 
 #########################
@@ -47,8 +46,11 @@ def devuelve_alumnos(sesion:Session):
 
 
 
-
-
+# Funcion para devolver un alumno dado un id 
+# SELECT * FROM app.alumnos WHERE id={id_al}
+def devuelve_alumnos_por_id(sesion:Session,id_alumno:int):
+    print("SELECT * FROM app.alumnos WHERE id={id_al}")
+    return sesion.query(modelos.Alumno).filter(modelos.Alumno.id==id_alumno).first()
 
 
 

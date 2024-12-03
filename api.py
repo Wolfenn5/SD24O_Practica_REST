@@ -1,7 +1,7 @@
 # Atender peticiones:
 
-# get("/alumnos”)
-# get("/alumnos/{id})
+## get("/alumnos”)
+## get("/alumnos/{id})
 # get("/alumnos/{id}/calificaciones")
 # get("/alumnos/{id}/fotos")
 # get("/fotos/{id}”)
@@ -41,6 +41,11 @@ def hola_mundo():
     return respuesta
 
 
+
+
+# primero van los parametros obligatorios y luego los opcionales 
+
+
 #########################
 
 # Alumnos
@@ -50,10 +55,15 @@ def hola_mundo():
 # Peticion get("/alumnos”)
 @app.get("/alumnos")
 def lista_alumnos(sesion:Session=Depends(generador_sesion)):
-    print("SELECT * FROM app.alumnos")
+    print("Api consultando lista de alumnos")
     return repo.devuelve_alumnos(sesion)
 
 
+# Peticion get("/alumnos/{id})
+@app.get("/alumnos/{id_alumno}")
+def lista_alumnos_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
+    print ("Api consultando el alumno: ", id_alumno)
+    return repo.devuelve_alumnos_por_id(sesion,id_alumno)
 
 
 
