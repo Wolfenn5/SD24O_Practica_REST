@@ -10,7 +10,7 @@ import datetime # para calcular la hora actual del pc, porque la columna fecha_r
 
 # -----argumentos extras-----
 # primary_key=True          indica que el id es una llave primaria
-# ForeignKey(arg1, arg2)    indica que es una llave foranea donde tiene 2 parametros. La tabla que se referencia y cual es la llave
+# ForeignKey(arg1, arg2)    indica que es una llave foranea donde tiene 2 parametros. La tabla que se referencia y que campo de esa tabla es la llave
 # "email"                   indica que es formato email. Por ejemplo, si no se pone un @, no se inserta
 # timezone= True            indica que se inserte con la zona horaria
 # default=                  indica que por "default" se obtiene la fecha y hora del dispositivo con datetime.datetime.now
@@ -32,14 +32,25 @@ class Alumno(BaseClass):
     fecha_registro= column(DateTime(timezone=True)), default= datetime.datetime.now   
 
 
+
+
 # Tabla calificaciones
 class Calificacion(BaseClass):
     __tablename__= "calificaciones" 
     id= column(Integer, primary_key= True)
-    id_alumno= (Integer, ForeignKey(Alumno.id)) # indica que es llave foranea de la tabla Alumno y es el id
-    uea= (String(100))
-    calificacion= (String(100))
+    id_alumno= column(Integer, ForeignKey(Alumno.id)) # indica que es llave foranea de la tabla Alumno y es el id
+    uea= column(String(100))
+    calificacion= column(String(100))
+
+
+
 
 # Tabla fotos
 class Foto(BaseClass):
-    __tablename__=
+    __tablename__= "fotos"
+    id= column(Integer, primary_key=True)
+    id_alumno= column(Integer, ForeignKey(Alumno.id)) # indica que es llave foranea de la tabla Alumno y es el id
+    titulo= column(String(100))
+    descripcion= column(String(100))
+    ruta= column(String(100)) 
+
