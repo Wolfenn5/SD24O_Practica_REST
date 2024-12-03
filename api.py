@@ -3,8 +3,8 @@
 ## get("/alumnos”)
 ## get("/alumnos/{id})
 ## get("/alumnos/{id}/calificaciones")
-# get("/alumnos/{id}/fotos")
-# get("/fotos/{id}”)
+## get("/alumnos/{id}/fotos")
+## get("/fotos/{id}”)
 # get("/calificaciones/{id}”)
 # delete("/fotos/{id}”)
 # delete("/calificaciones/{id}”)
@@ -80,6 +80,8 @@ def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion))
     return repo.devuelve_fotos_de_alumno_por_id(sesion, id_alumno)
 
 
+
+
 #########################
 
 # Calificaciones
@@ -96,3 +98,9 @@ def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion))
 # Fotos
 
 #########################
+
+# Peticion get("/fotos/{id}")
+@app.get("/fotos/{id_foto}")
+def lista_fotos(id_foto:int, sesion:Session=Depends(generador_sesion)):
+    print("Api consultando lista de fotos")
+    return repo.devuelve_fotos_por_id(sesion, id_foto)
