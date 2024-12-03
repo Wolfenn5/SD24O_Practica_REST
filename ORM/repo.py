@@ -6,7 +6,7 @@
 ## SELECT * FROM app.fotos WHERE id={id_fo}
 ## SELECT * FROM app.fotos WHERE id_alumno={id_al}
 # SELECT * FROM app.calificaciones
-# SELECT * FROM app.calificaciones WHERE id={id_fo}
+## SELECT * FROM app.calificaciones WHERE id={id_cal}
 ## SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
 # DELETE FROM app.alumnos WHERE id_alumno={id_al}
 # DELETE FROM app.calificaciones WHERE id_alumno={id_al}
@@ -70,6 +70,12 @@ def devuelve_alumnos_por_id(sesion:Session,id_alumno:int):
 def devuelve_calificaciones_de_alumno_por_id(sesion:Session, id_al:int):
     print("SELECT * FROM app.calificaciones WHERE id_alumno=", id_al)
     return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id_alumno==id_al).first()
+
+# Funcion para devolver una calificacion dado un id 
+# SELECT * FROM app.calificaciones WHERE id={id_cal}
+def devuelve_calificaciones_por_id(sesion:Session, id_cal:int):
+    print("SELECT * FROM app.calificaciones WHERE id=", id_cal)
+    return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id==id_cal).first()
 
 
 

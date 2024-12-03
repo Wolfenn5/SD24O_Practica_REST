@@ -88,7 +88,11 @@ def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion))
 
 #########################
 
-
+# Peticion get("/calificaciones/{id}”)
+@app.get("/calificaciones/{id_calificacion}")
+def lista_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(generador_sesion)):
+    print("Api consultando la calificacion con id: ", id_calificacion)
+    return repo.devuelve_calificaciones_por_id(sesion, id_calificacion)
 
 
 
@@ -102,5 +106,5 @@ def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion))
 # Peticion get("/fotos/{id}")
 @app.get("/fotos/{id_foto}")
 def lista_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
-    print("Api consultando lista de fotos")
+    print("Api consultando la foto con id:", id_foto)
     return repo.devuelve_fotos_por_id(sesion, id_foto)
