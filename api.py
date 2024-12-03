@@ -72,6 +72,14 @@ def calificaciones_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador
     print("Api consultando las calificaciones del alumno: ",id_alumno)
     return repo.devuelve_calificaciones_de_alumno_por_id(sesion, id_alumno)
 
+
+# Peticion get("/alumnos/{id}/fotos")
+@app.get("/alumnos/{id_alumno}/fotos")
+def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
+    print("Api consultando fotos del alumno: ",id_alumno)
+    return repo.devuelve_fotos_de_alumno_por_id(sesion, id_alumno)
+
+
 #########################
 
 # Calificaciones

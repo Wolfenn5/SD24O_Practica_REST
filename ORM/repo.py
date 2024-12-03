@@ -4,7 +4,7 @@
 ## SELECT * FROM app.alumnos WHERE id={id_al}
 # SELECT * FROM app.fotos
 # SELECT * FROM app.fotos WHERE id={id_fo}
-# SELECT * FROM app.fotos WHERE id_alumno={id_al}
+## SELECT * FROM app.fotos WHERE id_alumno={id_al}
 # SELECT * FROM app.calificaciones
 # SELECT * FROM app.calificaciones WHERE id={id_fo}
 ## SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
@@ -69,7 +69,7 @@ def devuelve_alumnos_por_id(sesion:Session,id_alumno:int):
 # SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
 def devuelve_calificaciones_de_alumno_por_id(sesion:Session, id_alumno:int):
     print("SELECT * FROM app.calificaciones WHERE id_alumno=", id_alumno)
-    return sesion.query(modelos.Calificacion).filter(modelos.Alumno.id==id_alumno).all()
+    return sesion.query(modelos.Calificacion).filter(modelos.Alumno.id==id_alumno).first()
 
 
 
@@ -79,3 +79,9 @@ def devuelve_calificaciones_de_alumno_por_id(sesion:Session, id_alumno:int):
 # Fotos
 
 #########################
+
+# Funcion para devolver las fotos de un alumno dado un id 
+# SELECT * FROM app.fotos WHERE id_alumno={id_al}
+def devuelve_fotos_de_alumno_por_id(sesion:Session, id_alumno:int):
+    print("SELECT * FROM app.fotos WHERE id_alumno=", id_alumno)
+    return sesion.query(modelos.Foto).filter(modelos.Alumno.id==id_alumno).first()
