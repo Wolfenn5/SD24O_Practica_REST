@@ -101,6 +101,6 @@ def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion))
 
 # Peticion get("/fotos/{id}")
 @app.get("/fotos/{id_foto}")
-def lista_fotos(id_foto:int, sesion:Session=Depends(generador_sesion)):
+def lista_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando lista de fotos")
     return repo.devuelve_fotos_por_id(sesion, id_foto)
