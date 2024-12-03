@@ -95,6 +95,11 @@ def lista_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(gene
     return repo.devuelve_calificaciones_por_id(sesion, id_calificacion)
 
 
+# Peticion get ("/calificaciones")
+@app.get("/calificaciones")
+def lista_calificaciones(sesion:Session=Depends(generador_sesion)):
+    print("Api consultando lista de calificaciones")
+    return repo.devuelve_calificaciones(sesion)
 
 
 #########################
