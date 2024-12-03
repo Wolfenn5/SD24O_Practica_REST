@@ -5,7 +5,7 @@
 ## get("/alumnos/{id}/calificaciones")
 ## get("/alumnos/{id}/fotos")
 ## get("/fotos/{id}”)
-# get("/calificaciones/{id}”)
+## get("/calificaciones/{id}”)
 # delete("/fotos/{id}”)
 # delete("/calificaciones/{id}”)
 # delete("/alumnos/{id}/calificaciones")
@@ -108,3 +108,11 @@ def lista_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(gene
 def lista_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando la foto con id:", id_foto)
     return repo.devuelve_fotos_por_id(sesion, id_foto)
+
+
+# Peticion get("/fotos")
+# Se hizo esta peticion para poder hacer la consulta SELECT * FROM app.fotos de repo.py
+@app.get("/fotos")
+def lista_fotos(sesion:Session=Depends(generador_sesion)):
+    print("Api consultando lista de fotos")
+    return repo.devuelve_fotos(sesion)
