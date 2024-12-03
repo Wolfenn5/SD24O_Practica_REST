@@ -7,7 +7,7 @@
 # SELECT * FROM app.fotos WHERE id_alumno={id_al}
 # SELECT * FROM app.calificaciones
 # SELECT * FROM app.calificaciones WHERE id={id_fo}
-# SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
+## SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
 # DELETE FROM app.alumnos WHERE id_alumno={id_al}
 # DELETE FROM app.calificaciones WHERE id_alumno={id_al}
 # DELETE FROM app.fotos WHERE id_alumno={id_al}
@@ -29,7 +29,7 @@ from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
 
 
 # En las funciones, primero va el argumento sesion y luego los de consulta por ejemplo, el id
-
+# Primero se recibe el favor (una query) y luego lo que pide (id u otra cosa)
 
 #########################
 
@@ -49,9 +49,8 @@ def devuelve_alumnos(sesion:Session):
 # Funcion para devolver un alumno dado un id 
 # SELECT * FROM app.alumnos WHERE id={id_al}
 def devuelve_alumnos_por_id(sesion:Session,id_alumno:int):
-    print("SELECT * FROM app.alumnos WHERE id={id_al}")
-    return sesion.query(modelos.Alumno).filter(modelos.Alumno.id==id_alumno).first()
-
+    print("SELECT * FROM app.alumnos WHERE id=", id_alumno)
+    return sesion.query(modelos.Alumno).filter(modelos.Alumno.id==id_alumno).all()
 
 
 
@@ -66,7 +65,11 @@ def devuelve_alumnos_por_id(sesion:Session,id_alumno:int):
 
 #########################
 
-
+# Funcion para devolver las calificaciones de un alumno dado un id 
+# SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
+def devuelve_calificaciones_de_alumno_por_id(sesion:Session, id_alumno:int):
+    print("SELECT * FROM app.calificaciones WHERE id_alumno=", id_alumno)
+    return sesion.query(modelos.Calificacion).filter(modelos.Alumno.id==id_alumno).all()
 
 
 

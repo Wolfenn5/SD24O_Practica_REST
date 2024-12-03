@@ -2,7 +2,7 @@
 
 ## get("/alumnos”)
 ## get("/alumnos/{id})
-# get("/alumnos/{id}/calificaciones")
+## get("/alumnos/{id}/calificaciones")
 # get("/alumnos/{id}/fotos")
 # get("/fotos/{id}”)
 # get("/calificaciones/{id}”)
@@ -43,8 +43,8 @@ def hola_mundo():
 
 
 
-# primero van los parametros obligatorios y luego los opcionales 
-
+# En las funciones, primero van los parametros obligatorios y luego los opcionales 
+# Primero lo que el usuario proporciona y luego se pide el favor (una query) a repo.py (sesion)
 
 #########################
 
@@ -66,6 +66,11 @@ def lista_alumnos_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)
     return repo.devuelve_alumnos_por_id(sesion,id_alumno)
 
 
+# Peticion get("/alumnos/{id}/calificaciones")
+@app.get("/alumnos/{id_alumno}/calificaciones")
+def calificaciones_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
+    print("Api consultando las calificaciones del alumno: ",id_alumno)
+    return repo.devuelve_calificaciones_de_alumno_por_id(sesion, id_alumno)
 
 #########################
 
