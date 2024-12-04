@@ -8,7 +8,7 @@
 ## SELECT * FROM app.calificaciones
 ## SELECT * FROM app.calificaciones WHERE id={id_cal}
 ## SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
-# DELETE FROM app.alumnos WHERE id_alumno={id_al}
+## DELETE FROM app.alumnos WHERE id_alumno={id_al}
 ## DELETE FROM app.calificaciones WHERE id_alumno={id_al}
 ## DELETE FROM app.fotos WHERE id_alumno={id_al}
 import ORM.modelos as modelos # para traer las tablas que se mapearon de modelos.py
@@ -51,6 +51,22 @@ def devuelve_alumnos_por_id(sesion:Session,id_alumno:int):
     return sesion.query(modelos.Alumno).filter(modelos.Alumno.id==id_alumno).all()
 
 
+# Funcion para borrar un alumno dado un id
+def devuelve_borrar_alumnos_por_id(sesion:Session, id_al:int):
+    # 1.- Primero se verifica que el alumno existe
+    print("Consultando si el alumno", id_al, "existe")
+    alumno= devuelve_alumnos_por_id(sesion, id_al)
+    # 2.- Si existe entonces se borra
+    if alumno is not None:
+        print("El alumno: ", id_al, "existe")
+        print("DELETE FROM app.alumnos WHERE id_alumno= ", id_al)
+        sesion.delete(alumno)
+    # 3.- Se confirman los cambios
+        sesion.commit()
+    respuesta= {
+        "mensaje": "alumno borrado"
+    }
+    return respuesta
 
 
 #########################
