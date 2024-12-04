@@ -9,7 +9,7 @@
 ## SELECT * FROM app.calificaciones WHERE id={id_cal}
 ## SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
 # DELETE FROM app.alumnos WHERE id_alumno={id_al}
-# DELETE FROM app.calificaciones WHERE id_alumno={id_al}
+## DELETE FROM app.calificaciones WHERE id_alumno={id_al}
 ## DELETE FROM app.fotos WHERE id_alumno={id_al}
 import ORM.modelos as modelos # para traer las tablas que se mapearon de modelos.py
 from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
@@ -76,6 +76,26 @@ def devuelve_calificaciones_por_id(sesion:Session, id_cal:int):
 def devuelve_calificaciones(sesion:Session):
     print("SELECT * FROM app.calificaciones")
     return sesion.query(modelos.Calificacion).all()
+
+
+# Funcion para borrar las calificaciones de un alumno dado un id
+# DELETE FROM app.calificaciones WHERE id_alumno={id_al}
+def devuelve_borrar_calificaciones_de_alumno_por_id(sesion:Session, id_alumno:int):
+    # 1.- Antes de borrar primero se va a verificar que el alumno tiene calificaciones y ademas existe con un SELECT
+    print("Consultando si el alumno:", id_alumno, "existe")
+    calificaciones_alumno= devuelve_calificaciones_de_alumno_por_id(sesion, id_alumno) # se pasa sesion y no sesion:Session para no crear una doble sesion
+    # 2.- Si existe entonces se borra
+    if calificaciones_alumno is not None:
+        print("El alumno:", id_alumno, "existe")
+        print("DELETE FROM app.calificaciones WHERE id_alumno= ", id_alumno)
+        sesion.delete(calificaciones_alumno)
+    # 3.- Se confirman los cambios
+        sesion.commit() # Se hacen todos los cambios a la vez (se borran todos a la vez y no uno por uno)
+    respuesta= {
+        "mensaje": "calificaciones del alumno borradas"
+    }
+    return respuesta
+
 
 
 

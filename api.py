@@ -8,7 +8,7 @@
 ## get("/calificaciones/{id}”)
 # delete("/fotos/{id}”)
 # delete("/calificaciones/{id}”)
-# delete("/alumnos/{id}/calificaciones")
+## delete("/alumnos/{id}/calificaciones")
 ## delete("/alumnos/{id}/fotos")
 """# delete("/alumnos/{id})"""
 from fastapi import FastAPI, UploadFile, File, Form, Depends # para manejo de archivos, formularios html y sesiones
@@ -100,6 +100,13 @@ def borrar_alumno(id:int, sesion:Session=Depends(generador_sesion)):
 def borrar_fotos_de_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
     print("Api borrando fotos del alumno:", id_alumno)
     return repo.devuelve_borrar_fotos_de_alumno_por_id(sesion, id_alumno)
+
+
+# Peticion delete("/alumnos/{id}/calificaciones")
+@app.delete("/alumnos/{id}/calificaciones")
+def borrar_calificaciones_de_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
+    print("Api borrando calificaciones del alumno: ",id_alumno)
+    return repo.devuelve_borrar_calificaciones_de_alumno_por_id(sesion,id_alumno)
 
 
 
