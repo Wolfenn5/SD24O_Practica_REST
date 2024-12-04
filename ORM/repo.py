@@ -160,3 +160,22 @@ def devuelve_borrar_fotos_de_alumno_por_id(sesion:Session, id_alumno:int):
         "mensaje": "fotos del alumno borradas"
     }
     return respuesta
+
+
+# Funcion para borrar fotos dado un id
+# DELETE FROM app.fotos WHERE id={id_fo}
+def devuelve_borrar_fotos_por_id(sesion:Session, id_fo):
+    # 1.- Primero se verifica que la foto existe
+    print("Consultando si la foto", id_fo, "existe")
+    foto= devuelve_fotos_por_id(sesion, id_fo)
+    # 2.- Si existe entonces se borra
+    if foto is not None:
+        print("La foto: ", id_fo, "existe")
+        print("DELETE FROM app.fotos WHERE id= ", id_fo)
+        sesion.delete(foto)
+    # 3.- Se confirman los cambios
+        sesion.commit()
+    respuesta= {
+        "mensaje": "foto borrada"
+    }
+    return respuesta

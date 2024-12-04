@@ -6,8 +6,8 @@
 ## get("/alumnos/{id}/fotos")
 ## get("/fotos/{id}”)
 ## get("/calificaciones/{id}”)
-# delete("/fotos/{id}”)
-# delete("/calificaciones/{id}”)
+## delete("/fotos/{id}”)
+## delete("/calificaciones/{id}”)
 ## delete("/alumnos/{id}/calificaciones")
 ## delete("/alumnos/{id}/fotos")
 """# delete("/alumnos/{id})"""
@@ -157,3 +157,10 @@ def lista_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
 def lista_fotos(sesion:Session=Depends(generador_sesion)):
     print("Api consultando lista de fotos")
     return repo.devuelve_fotos(sesion)
+
+
+# Peticion delete("/fotos/{id}”)
+@app.delete("/fotos/{id}")
+def borrar_fotos_por_id(id_fo:int, sesion:Session=Depends(generador_sesion)):
+    print("Api borrando foto con id:", id_fo)
+    return repo.devuelve_borrar_fotos_por_id(sesion, id_fo)
