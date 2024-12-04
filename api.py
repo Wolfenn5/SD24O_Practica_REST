@@ -9,8 +9,8 @@
 # delete("/fotos/{id}”)
 # delete("/calificaciones/{id}”)
 # delete("/alumnos/{id}/calificaciones")
-# delete("/alumnos/{id}/fotos")
-# delete("/alumnos/{id})
+## delete("/alumnos/{id}/fotos")
+"""# delete("/alumnos/{id})"""
 from fastapi import FastAPI, UploadFile, File, Form, Depends # para manejo de archivos, formularios html y sesiones
 from typing import Optional # para hacer que los argumentos señalados sean opcionales
 
@@ -79,6 +79,27 @@ def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion))
     print("Api consultando fotos del alumno: ",id_alumno)
     return repo.devuelve_fotos_de_alumno_por_id(sesion, id_alumno)
 
+
+
+"""  Peticion aun por IMPLEMENTAR ya que requiere borrar calificaciones y fotos del alumno
+
+# Peticion delete("/alumnos/{id})  
+@app.delete("/alumnos/{id}")
+def borrar_alumno(id:int, sesion:Session=Depends(generador_sesion)):
+    # Antes de borrar al alumno, primero hay que borrar las calificaciones y fotos que esten asociados a ese alumno
+    repo.devuelve_borrar_calificaciones_de_alumno_por_id(sesion,id)
+    repo.devuelve_borrar_fotos_de_alumno_por_id(sesion,id)
+    # Y ahora si se puede borrar el usuario
+    repo.borrar_alumno_por_id(sesion,id)
+    return {"Api borrando alumno: ", "ok"}
+"""
+
+
+# Peticion delete("/alumnos/{id}/fotos")
+@app.delete("/alumnos/{id}/fotos")
+def borrar_fotos_de_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
+    print("Api borrando fotos del alumno:", id_alumno)
+    return repo.devuelve_borrar_fotos_de_alumno_por_id(sesion, id_alumno)
 
 
 

@@ -10,7 +10,7 @@
 ## SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
 # DELETE FROM app.alumnos WHERE id_alumno={id_al}
 # DELETE FROM app.calificaciones WHERE id_alumno={id_al}
-# DELETE FROM app.fotos WHERE id_alumno={id_al}
+## DELETE FROM app.fotos WHERE id_alumno={id_al}
 import ORM.modelos as modelos # para traer las tablas que se mapearon de modelos.py
 from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
 
@@ -44,17 +44,11 @@ def devuelve_alumnos(sesion:Session):
     return sesion.query(modelos.Alumno).all()
 
 
-
-
 # Funcion para devolver un alumno dado un id 
 # SELECT * FROM app.alumnos WHERE id={id_al}
 def devuelve_alumnos_por_id(sesion:Session,id_alumno:int):
     print("SELECT * FROM app.alumnos WHERE id=", id_alumno)
     return sesion.query(modelos.Alumno).filter(modelos.Alumno.id==id_alumno).all()
-
-
-
-
 
 
 
@@ -111,3 +105,22 @@ def devuelve_fotos_por_id(sesion:Session, id_fot:int):
 def devuelve_fotos(sesion:Session):
     print("SELECT * FROM app.fotos")
     return sesion.query(modelos.Foto).all()
+
+
+# Funcion para borrar las fotos de un alumno dado un id
+# DELETE FROM app.fotos WHERE id_alumno={id_al}
+def devuelve_borrar_fotos_de_alumno_por_id(sesion:Session, id_alumno:int):
+    print("Consultando si el alumno:", id_alumno, "existe")
+    # 1.- Antes de borrar primero se va a verificar que el alumno tiene fotos y ademas existe con un SELECT
+    fotos_de_alumno= devuelve_fotos_de_alumno_por_id(sesion,id_alumno) # la sesion se pasa como un argumento y no como sesion:Session, porque se crearia una doble sesion
+    # 2.- Si existe, entonces se borra el alumno
+    if fotos_de_alumno is not None:
+        print("El alumno:", id_alumno,"existe")
+        print("DELETE FROM app.fotos WHERE id_alumno= ", id_alumno)
+        sesion.delete(fotos_de_alumno)
+    # 3.- Se confirma que se hizo el cambio
+        sesion.commit() # Se hacen todos los cambios a la vez (si llegasen a existir varios alumnos con un mismo id, se borran todos a la vez y no uno por uno)
+    respuesta = {
+        "mensaje": "fotos del alumno borradas"
+    }
+    return respuesta
