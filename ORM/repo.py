@@ -97,7 +97,23 @@ def devuelve_borrar_calificaciones_de_alumno_por_id(sesion:Session, id_alumno:in
     return respuesta
 
 
-
+# Funcion para borrar calificaciones dado un id
+# DELETE FROM app.calificaciones WHERE id={id_cal}
+def devuelve_borrar_calificaciones_por_id(sesion:Session, id_cal):
+    # 1.- Primero se verifica si la calificacion con el id existe
+    print("Consultando si la calificacion:",id_cal, "existe")
+    calificacion= devuelve_calificaciones_por_id(sesion, id_cal)
+    # 2.- Si existe entonces se borra
+    if calificacion is not None:
+        print("La calificacion:", id_cal, "existe")
+        print("DELETE FROM app.calificaciones WHERE id= ", id_cal)
+        sesion.delete(calificacion)
+    # 3.- Se confirman los cambios
+        sesion.commit()
+    respuesta= {
+        "mensaje": "calificacion borrada"
+    }
+    return respuesta
 
 
 #########################

@@ -130,6 +130,14 @@ def lista_calificaciones(sesion:Session=Depends(generador_sesion)):
     return repo.devuelve_calificaciones(sesion)
 
 
+# Peticion delete("/calificaciones/{id}”)
+@app.delete("/calificaciones/{id}")
+def borrar_calificaciones_por_id(id_cal:int, sesion:Session=Depends(generador_sesion)):
+    print("Api borrando la calificacion con id:",id_cal)
+    return repo.devuelve_borrar_calificaciones_por_id(sesion, id_cal)
+
+
+
 #########################
 
 # Fotos
