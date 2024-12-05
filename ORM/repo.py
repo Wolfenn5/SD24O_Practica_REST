@@ -79,7 +79,7 @@ def devuelve_borrar_alumnos_por_id(sesion:Session, id_al:int):
 # SELECT * FROM app.calificaciones WHERE id_alumno={id_al}
 def devuelve_calificaciones_de_alumno_por_id(sesion:Session, id_al:int):
     print("SELECT * FROM app.calificaciones WHERE id_alumno=", id_al)
-    return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id_alumno==id_al).first()
+    return sesion.query(modelos.Calificacion).filter(modelos.Calificacion.id_alumno==id_al).all()
 
 # Funcion para devolver una calificacion dado un id 
 # SELECT * FROM app.calificaciones WHERE id={id_cal}
@@ -98,13 +98,15 @@ def devuelve_calificaciones(sesion:Session):
 # DELETE FROM app.calificaciones WHERE id_alumno={id_al}
 def devuelve_borrar_calificaciones_de_alumno_por_id(sesion:Session, id_alumno:int):
     # 1.- Antes de borrar primero se va a verificar que el alumno tiene calificaciones y ademas existe con un SELECT
-    print("Consultando si el alumno:", id_alumno, "existe")
-    calificaciones_alumno= devuelve_calificaciones_de_alumno_por_id(sesion, id_alumno) # se pasa sesion y no sesion:Session para no crear una doble sesion
-    # 2.- Si existe entonces se borra
-    if calificaciones_alumno is not None:
+    print("Consultando si el alumno:", id_alumno, "existe y tiene calificaciones")
+    calificaciones_de_alumno= devuelve_calificaciones_de_alumno_por_id(sesion, id_alumno) # se pasa sesion y no sesion:Session para no crear una doble sesion
+    # 2.- Si existe entonces se borran las calificaciones del alumno
+    if calificaciones_de_alumno is not None:
         print("El alumno:", id_alumno, "existe")
         print("DELETE FROM app.calificaciones WHERE id_alumno= ", id_alumno)
-        sesion.delete(calificaciones_alumno)
+        # Por si hay un alumno que tenga varias calificaciones (como el alumno 1 que tiene 2 fotos). Se elimina cada calificacion
+        for calificacion in calificaciones_de_alumno:
+            sesion.delete(calificacion)
     # 3.- Se confirman los cambios
         sesion.commit() # Se hacen todos los cambios a la vez (se borran todos a la vez y no uno por uno)
     respuesta= {
@@ -142,7 +144,7 @@ def devuelve_borrar_calificaciones_por_id(sesion:Session, id_cal):
 # SELECT * FROM app.fotos WHERE id_alumno={id_al}
 def devuelve_fotos_de_alumno_por_id(sesion:Session, id_al:int):
     print("SELECT * FROM app.fotos WHERE id_alumno=", id_al)
-    return sesion.query(modelos.Foto).filter(modelos.Foto.id_alumno==id_al).first()
+    return sesion.query(modelos.Foto).filter(modelos.Foto.id_alumno==id_al).all()
 
 
 # Funcion para devolver una foto dado un id
@@ -162,14 +164,16 @@ def devuelve_fotos(sesion:Session):
 # Funcion para borrar las fotos de un alumno dado un id
 # DELETE FROM app.fotos WHERE id_alumno={id_al}
 def devuelve_borrar_fotos_de_alumno_por_id(sesion:Session, id_alumno:int):
-    print("Consultando si el alumno:", id_alumno, "existe")
+    print("Consultando si el alumno:", id_alumno, "existe y tiene calificaciones")
     # 1.- Antes de borrar primero se va a verificar que el alumno tiene fotos y ademas existe con un SELECT
     fotos_de_alumno= devuelve_fotos_de_alumno_por_id(sesion,id_alumno) # la sesion se pasa como un argumento y no como sesion:Session, porque se crearia una doble sesion
-    # 2.- Si existe, entonces se borra el alumno
+    # 2.- Si existe, entonces se borran las fotos del alumno
     if fotos_de_alumno is not None:
         print("El alumno:", id_alumno,"existe")
         print("DELETE FROM app.fotos WHERE id_alumno= ", id_alumno)
-        sesion.delete(fotos_de_alumno)
+        # Por si hay un alumno que tenga varias fotos (como el alumno 2 que tiene 2 fotos). Se elimina cada foto
+        for foto in fotos_de_alumno:
+            sesion.delete(foto)
     # 3.- Se confirma que se hizo el cambio
         sesion.commit() # Se hacen todos los cambios a la vez (si llegasen a existir varios alumnos con un mismo id, se borran todos a la vez y no uno por uno)
     respuesta = {
