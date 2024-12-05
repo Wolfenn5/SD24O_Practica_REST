@@ -60,21 +60,21 @@ def lista_alumnos(sesion:Session=Depends(generador_sesion)):
 
 
 # Peticion get("/alumnos/{id})
-@app.get("/alumnos/{id_alumno}")
+@app.get("/alumnos/{id}")
 def lista_alumnos_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
     print ("Api consultando el alumno: ", id_alumno)
     return repo.devuelve_alumnos_por_id(sesion,id_alumno)
 
 
 # Peticion get("/alumnos/{id}/calificaciones")
-@app.get("/alumnos/{id_alumno}/calificaciones")
+@app.get("/alumnos/{id}/calificaciones")
 def calificaciones_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando las calificaciones del alumno: ",id_alumno)
     return repo.devuelve_calificaciones_de_alumno_por_id(sesion, id_alumno)
 
 
 # Peticion get("/alumnos/{id}/fotos")
-@app.get("/alumnos/{id_alumno}/fotos")
+@app.get("/alumnos/{id}/fotos")
 def fotos_alumno_por_id(id_alumno:int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando fotos del alumno: ",id_alumno)
     return repo.devuelve_fotos_de_alumno_por_id(sesion, id_alumno)
@@ -116,7 +116,7 @@ def borrar_calificaciones_de_alumno_por_id(id_alumno:int, sesion:Session=Depends
 #########################
 
 # Peticion get("/calificaciones/{id}”)
-@app.get("/calificaciones/{id_calificacion}")
+@app.get("/calificaciones/{id}")
 def lista_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando la calificacion con id: ", id_calificacion)
     return repo.devuelve_calificaciones_por_id(sesion, id_calificacion)
@@ -131,9 +131,9 @@ def lista_calificaciones(sesion:Session=Depends(generador_sesion)):
 
 # Peticion delete("/calificaciones/{id}”)
 @app.delete("/calificaciones/{id}")
-def borrar_calificaciones_por_id(id_cal:int, sesion:Session=Depends(generador_sesion)):
-    print("Api borrando la calificacion con id:",id_cal)
-    return repo.devuelve_borrar_calificaciones_por_id(sesion, id_cal)
+def borrar_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(generador_sesion)):
+    print("Api borrando la calificacion con id:",id_calificacion)
+    return repo.devuelve_borrar_calificaciones_por_id(sesion, id_calificacion)
 
 
 
@@ -144,7 +144,7 @@ def borrar_calificaciones_por_id(id_cal:int, sesion:Session=Depends(generador_se
 #########################
 
 # Peticion get("/fotos/{id}")
-@app.get("/fotos/{id_foto}")
+@app.get("/fotos/{id}")
 def lista_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
     print("Api consultando la foto con id:", id_foto)
     return repo.devuelve_fotos_por_id(sesion, id_foto)
@@ -160,6 +160,6 @@ def lista_fotos(sesion:Session=Depends(generador_sesion)):
 
 # Peticion delete("/fotos/{id}”)
 @app.delete("/fotos/{id}")
-def borrar_fotos_por_id(id_fo:int, sesion:Session=Depends(generador_sesion)):
-    print("Api borrando foto con id:", id_fo)
-    return repo.devuelve_borrar_fotos_por_id(sesion, id_fo)
+def borrar_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
+    print("Api borrando foto con id:", id_foto)
+    return repo.devuelve_borrar_fotos_por_id(sesion, id_foto)
