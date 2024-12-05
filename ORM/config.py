@@ -1,7 +1,8 @@
-# Configurar conexion a BD
 from sqlalchemy import create_engine # para crear el engine (conexion a BD)
 from sqlalchemy.orm import sessionmaker # para crear sesiones cuando se hagan consultas
 from sqlalchemy.ext.declarative import declarative_base # para crear BaseClass y poder mapear tablas
+
+# ---> Este archivo config.py sirve para configurar la conexion a BD
 
 # 1.- Configuracion de BD
 # --> nombre_servidor://usuario:contraseña_del_usuario@URL_SERVIDOR:puerto/nombreBD

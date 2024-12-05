@@ -1,8 +1,8 @@
-# Mapear clases
 from ORM.config import BaseClass # traer del archivo config.py la clase BaseClass (declarative_base) para poder mapear las tablas
-from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Float # traer los tipos de dato que usa sqlalchemy
+from sqlalchemy import Column, String, Integer, DateTime, ForeignKey # traer los tipos de dato que usa sqlalchemy
 import datetime # para calcular la hora actual del pc, porque la columna fecha_registro de la tabla alumnos es de tipo TIMESTAMP WITH TIME ZONE
 
+# ---> Este archivo modelos.py sirve para mapear clases 
 
 # Clases de tipo BaseClass por cada tipo de tabla que hay en la BD (alumnos, calificaciones, fotos)
 # __tablename__= Nombre_tabla_BD

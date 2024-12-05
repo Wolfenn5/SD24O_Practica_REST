@@ -1,2 +1,5 @@
 # Ignorar archivos pyc (pycache)
 *.pyc
+
+# Ignorar archivos pdf
+*.pdf
