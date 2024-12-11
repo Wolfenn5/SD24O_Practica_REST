@@ -24,10 +24,6 @@ import ORM.esquemas as esquemas
 # put("/calificaciones/{id}")
 # put("/fotos/{id}")
 
-"""
-usar commit:  “Versión final de la práctica REST2”
-"""
-
 
 # En las funciones, primero van los parametros obligatorios y luego los opcionales 
 # Primero lo que el usuario proporciona y luego se pide el favor (una query) a repo.py (sesion)
@@ -125,23 +121,23 @@ def borrar_calificaciones_de_alumno_por_id(id_alumno:int, sesion:Session=Depends
 
 # Peticion post("/alumnos”)
 @app.post("/alumnos")
-def alumno_nuevo(alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
-    print("Api insertando un alumno nuevo: ", alumno)
-    return repo.devuelve_alumno_nuevo(sesion, alumno)
+def alumno_nuevo(alumno_info:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
+    print("Api insertando un alumno nuevo: ", alumno_info)
+    return repo.devuelve_alumno_nuevo(sesion, alumno_info)
 
 
 # Peticion post("/alumnos/{id}/calificaciones")
 @app.post("/alumnos/{id}/calificaciones")
-def calificacion_nueva_por_id_de_alumno(id_alumno:int, calificacion:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
-    print("Api insertando una calificacion nueva: ", calificacion)
-    return repo.devuelve_calificacion_nueva_por_id_de_alumno(sesion, id_alumno, calificacion)
+def calificacion_nueva_por_id_de_alumno(id_alumno:int, calificacion_info:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
+    print("Api insertando una calificacion nueva: ", calificacion_info)
+    return repo.devuelve_calificacion_nueva_por_id_de_alumno(sesion, id_alumno, calificacion_info)
 
 
 # Peticion post("/alumnos/{id}/fotos")
 @app.post("/alumnos/{id}/fotos")
-def foto_nueva_por_id_de_alumno(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
-    print("Api insertando una foto nueva: ", foto)
-    return repo.devuelve_foto_nueva_por_id_de_alumno(sesion, id_alumno, foto)
+def foto_nueva_por_id_de_alumno(id_alumno:int, foto_info:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
+    print("Api insertando una foto nueva: ", foto_info)
+    return repo.devuelve_foto_nueva_por_id_de_alumno(sesion, id_alumno, foto_info)
 
 
 

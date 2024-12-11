@@ -2,7 +2,6 @@ import ORM.modelos as modelos # para traer las tablas que se mapearon de modelos
 from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
 import ORM.esquemas as esquemas
 
-
 # ---> Este archivo repo.py implementa las siguientes consultas SQL SELECT y DELETE
 
 # SELECT * FROM app.alumnos
@@ -100,55 +99,6 @@ def devuelve_alumno_nuevo(sesion:Session, alumno_nuevo:esquemas.AlumnoBase): # a
     sesion.refresh(alumno_bd)
     return alumno_bd
 
-
-# Funcion para devolver una calificacion nueva a un alumno dado un id
-# INSERT INTO app.calificaciones WHERE id_alumno={id_al}
-def devuelve_calificacion_nueva_por_id_de_alumno(sesion:Session, id_alumno:int, calificacion_nueva:esquemas.CalificacionBase):
-    # 1.- Verificar que el alumno exista
-    calificacion_bd = devuelve_alumnos_por_id(sesion, id_alumno)
-    # 2.- Si existe, crear un nuevo objeto de la clase modelo Calificacion
-    if calificacion_bd is not None: 
-        calificacion_bd = modelos.Calificacion()
-    # 3.- Llenar el nuevo objeto con los parametros que pasa el usuario
-        calificacion_bd.uea = calificacion_nueva.uea
-        calificacion_bd.calificacion = calificacion_nueva.calificacion
-        # Como el usuario no puede modificar tal cual el id_alumno, se utiliza el que se recibe del usuario sin que el lo haga manualmente
-        calificacion_bd.id_alumno = id_alumno
-    # 4.- Insertar el nuevo objeto a la BD
-        sesion.add(calificacion_bd)
-    # 5.- Confirmar los cambios
-        sesion.commit()
-    # 6.- Refrescar/actualizar los cambios
-        sesion.refresh(calificacion_bd)
-        return calificacion_bd
-    else:
-        respuesta = {"mensaje" : "No existe el alumno"}
-        return respuesta
-
-
-# Funcion para devolver una foto nueva a un alumno dado un id
-# INSERT INTO app.foto WHERE id_alumno={id_al}
-def devuelve_foto_nueva_por_id_de_alumno(sesion:Session, id_alumno:int, foto_nueva:esquemas.FotoBase):
-    # 1.- Verificar que el alumno exista
-    foto_bd = devuelve_alumnos_por_id(sesion, id_alumno)
-    # 2.- Si existe, crear un nuevo objeto de la clase modelo Foto
-    if foto_bd is not None: 
-        foto_bd = modelos.Foto()
-    # 3.- Llenar el nuevo objeto con los parametros que pasa el usuario
-        foto_bd.titulo = foto_nueva.titulo
-        foto_bd.descripcion = foto_nueva.descripcion
-        # Como el usuario no puede modificar tal cual el id_alumno, se utiliza el que se recibe del usuario sin que el lo haga manualmente
-        foto_bd.id_alumno = id_alumno
-    # 4.- Insertar el nuevo objeto a la BD
-        sesion.add(foto_bd)
-    # 5.- Confirmar los cambios
-        sesion.commit()
-    # 6.- Refrescar/actualizar los cambios
-        sesion.refresh(foto_bd)
-        return foto_bd
-    else:
-        respuesta = {"mensaje" : "No existe el alumno"}
-        return respuesta
 
 
 #---------------Consultas UPDATE---------------#
@@ -249,6 +199,35 @@ def devuelve_borrar_calificaciones_por_id(sesion:Session, id_cal):
     return respuesta
 
 
+
+#---------------Consultas INSERT---------------#
+
+# Funcion para devolver una calificacion nueva a un alumno dado un id
+# INSERT INTO app.calificaciones WHERE id_alumno={id_al}
+def devuelve_calificacion_nueva_por_id_de_alumno(sesion:Session, id_alumno:int, calificacion_nueva:esquemas.CalificacionBase):
+    # 1.- Verificar que el alumno exista
+    calificacion_bd = devuelve_alumnos_por_id(sesion, id_alumno)
+    # 2.- Si existe, crear un nuevo objeto de la clase modelo Calificacion
+    if calificacion_bd is not None: 
+        calificacion_bd = modelos.Calificacion()
+    # 3.- Llenar el nuevo objeto con los parametros que pasa el usuario
+        calificacion_bd.uea = calificacion_nueva.uea
+        calificacion_bd.calificacion = calificacion_nueva.calificacion
+        # Como el usuario no puede modificar tal cual el id_alumno, se utiliza el que se recibe del usuario sin que el lo haga manualmente
+        calificacion_bd.id_alumno = id_alumno
+    # 4.- Insertar el nuevo objeto a la BD
+        sesion.add(calificacion_bd)
+    # 5.- Confirmar los cambios
+        sesion.commit()
+    # 6.- Refrescar/actualizar los cambios
+        sesion.refresh(calificacion_bd)
+        return calificacion_bd
+    else:
+        respuesta = {"mensaje" : "No existe el alumno"}
+        return respuesta
+
+
+
 #---------------Consultas UPDATE---------------#
 
 # Funcion para devolver datos actualizados de una calificacion dado un id
@@ -342,6 +321,36 @@ def devuelve_borrar_fotos_por_id(sesion:Session, id_fo):
         "mensaje": "foto borrada"
     }
     return respuesta
+
+
+
+#---------------Consultas INSERT---------------#
+
+# Funcion para devolver una foto nueva a un alumno dado un id
+# INSERT INTO app.foto WHERE id_alumno={id_al}
+def devuelve_foto_nueva_por_id_de_alumno(sesion:Session, id_alumno:int, foto_nueva:esquemas.FotoBase):
+    # 1.- Verificar que el alumno exista
+    foto_bd = devuelve_alumnos_por_id(sesion, id_alumno)
+    # 2.- Si existe, crear un nuevo objeto de la clase modelo Foto
+    if foto_bd is not None: 
+        foto_bd = modelos.Foto()
+    # 3.- Llenar el nuevo objeto con los parametros que pasa el usuario
+        foto_bd.titulo = foto_nueva.titulo
+        foto_bd.descripcion = foto_nueva.descripcion
+        # Como el usuario no puede modificar tal cual el id_alumno, se utiliza el que se recibe del usuario sin que el lo haga manualmente
+        foto_bd.id_alumno = id_alumno
+    # 4.- Insertar el nuevo objeto a la BD
+        sesion.add(foto_bd)
+    # 5.- Confirmar los cambios
+        sesion.commit()
+    # 6.- Refrescar/actualizar los cambios
+        sesion.refresh(foto_bd)
+        return foto_bd
+    else:
+        respuesta = {"mensaje" : "No existe el alumno"}
+        return respuesta
+    
+
 
 
 
