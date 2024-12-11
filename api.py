@@ -138,6 +138,8 @@ def foto_nueva(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(gen
     return repo.devuelve_foto_nueva(sesion, id_alumno, foto)
 
 
+
+
 #---------------Peticiones PUT---------------#
 
 # Peticion put("/alumnos/{id})  
@@ -181,19 +183,14 @@ def borrar_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(gen
 
 
 
-
-#---------------Peticiones POST---------------#
-
-
-
-
-
-
-
 #---------------Peticiones PUT---------------#
-"""
-# put("/calificaciones/{id}")
-"""
+
+# Peticion put("/calificaciones/{id}")
+@app.put("/calificaciones/{id}")
+def actualizar_datos_calificacion(id_calificacion:int, info_calificacion:esquemas.CalificacionBase,sesion:Session=Depends(generador_sesion)):
+    return repo.devuelve_actualizar_datos_calificacion(sesion, id_calificacion, info_calificacion)
+
+
 
 
 #########################
