@@ -78,9 +78,9 @@ def devuelve_borrar_alumnos_por_id(sesion:Session, id_al:int):
 
 
 #---------------Consultas INSERT---------------#
-# Funcion para devolver un alumno nuevo 
-# INSERT INTO alumnos
 
+# Funcion para devolver un alumno nuevo 
+# INSERT INTO app.alumnos
 def devuelve_alumno_nuevo(sesion:Session, alumno_nuevo:esquemas.AlumnoBase): # alumno_nuevo es lo que se recibe del usuario
     # 1.- Crear un nuevo objeto de la clase modelo Alumno
     alumno_bd = modelos.Alumno()
@@ -101,7 +101,28 @@ def devuelve_alumno_nuevo(sesion:Session, alumno_nuevo:esquemas.AlumnoBase): # a
     return alumno_bd
 
 
-
+# Funcion para devolver una calificacion nueva a un alumno dado un id
+def devuelve_calificacion_nueva(sesion:Session, id_alumno:int, calificacion_nueva:esquemas.CalificacionBase):
+    # 1.- Verificar que el alumno exista
+    calificacion_bd = devuelve_alumnos_por_id(sesion, id_alumno)
+    # 2.- Si existe, crear un nuevo objeto de la clase modelo Calificacion
+    if calificacion_bd is not None: 
+        calificacion_bd = modelos.Calificacion()
+    # 3.- Llenar el nuevo objeto con los parametros que pasa el usuario
+        calificacion_bd.uea = calificacion_nueva.uea
+        calificacion_bd.calificacion = calificacion_nueva.calificacion
+        # Como el usuario no puede modificar tal cual el id_alumno, se utiliza el que se recibe del usuario sin que el lo haga manualmente
+        calificacion_bd.id_alumno = id_alumno
+    # 4.- Insertar el nuevo objeto a la BD
+        sesion.add(calificacion_bd)
+    # 5.- Confirmar los cambios
+        sesion.commit()
+    # 6.- Refrescar/actualizar los cambios
+        sesion.refresh(calificacion_bd)
+        return calificacion_bd
+    else:
+        respuesta = {"mensaje" : "No existe el alumno"}
+        return respuesta
 
 
 #---------------Consultas PUT---------------#

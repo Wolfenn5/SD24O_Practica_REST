@@ -129,6 +129,12 @@ def alumno_nuevo(alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_ses
     return repo.devuelve_alumno_nuevo(sesion, alumno)
 
 
+# Peticion post("/alumnos/{id}/calificaciones")
+@app.post("/alumnos/{id}/calificaciones")
+def calificacion_nueva(id_alumno:int, calificacion:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
+    print(calificacion)
+    return repo.devuelve_calificacion_nueva(sesion, id_alumno, calificacion)
+
 
 #---------------Peticiones PUT---------------#
 """
