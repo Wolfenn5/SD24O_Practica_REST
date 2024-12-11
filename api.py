@@ -117,11 +117,6 @@ def borrar_calificaciones_de_alumno_por_id(id_alumno:int, sesion:Session=Depends
 
 #---------------Peticiones POST---------------#
 
-"""
-# Peticion post("/alumnos”)
-# post("/alumnos/{id}/calificaciones")
-# post("/alumnos/{id}/fotos")
-"""
 # Peticion post("/alumnos”)
 @app.post("/alumnos")
 def alumno_nuevo(alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
@@ -134,6 +129,13 @@ def alumno_nuevo(alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_ses
 def calificacion_nueva(id_alumno:int, calificacion:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
     print(calificacion)
     return repo.devuelve_calificacion_nueva(sesion, id_alumno, calificacion)
+
+
+# Peticion post("/alumnos/{id}/fotos")
+@app.post("/alumnos/{id}/fotos")
+def foto_nueva(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
+    print(foto)
+    return repo.devuelve_foto_nueva(sesion, id_alumno, foto)
 
 
 #---------------Peticiones PUT---------------#

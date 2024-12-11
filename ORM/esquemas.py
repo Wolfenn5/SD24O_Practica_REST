@@ -21,6 +21,6 @@ class CalificacionBase(BaseModel):
     calificacion:str
 
 # Definir el esquema fotos
-class FotosBase(BaseModel):
+class FotoBase(BaseModel):
     titulo:str
     descripcion:str
