@@ -103,7 +103,7 @@ def devuelve_alumno_nuevo(sesion:Session, alumno_nuevo:esquemas.AlumnoBase): # a
 
 # Funcion para devolver una calificacion nueva a un alumno dado un id
 # INSERT INTO app.calificaciones WHERE id_alumno={id_al}
-def devuelve_calificacion_nueva(sesion:Session, id_alumno:int, calificacion_nueva:esquemas.CalificacionBase):
+def devuelve_calificacion_nueva_por_id_de_alumno(sesion:Session, id_alumno:int, calificacion_nueva:esquemas.CalificacionBase):
     # 1.- Verificar que el alumno exista
     calificacion_bd = devuelve_alumnos_por_id(sesion, id_alumno)
     # 2.- Si existe, crear un nuevo objeto de la clase modelo Calificacion
@@ -128,7 +128,7 @@ def devuelve_calificacion_nueva(sesion:Session, id_alumno:int, calificacion_nuev
 
 # Funcion para devolver una foto nueva a un alumno dado un id
 # INSERT INTO app.foto WHERE id_alumno={id_al}
-def devuelve_foto_nueva(sesion:Session, id_alumno:int, foto_nueva:esquemas.FotoBase):
+def devuelve_foto_nueva_por_id_de_alumno(sesion:Session, id_alumno:int, foto_nueva:esquemas.FotoBase):
     # 1.- Verificar que el alumno exista
     foto_bd = devuelve_alumnos_por_id(sesion, id_alumno)
     # 2.- Si existe, crear un nuevo objeto de la clase modelo Foto
@@ -155,7 +155,7 @@ def devuelve_foto_nueva(sesion:Session, id_alumno:int, foto_nueva:esquemas.FotoB
 
 # Funcion para devolver datos actualizados de un alumno dado un id
 # UPDATE app.foto WHERE id_alumno={id_al}
-def devuelve_actualizar_datos_alumno(sesion:Session, id_alumno:int, alumno_esquema:esquemas.AlumnoBase):
+def devuelve_actualizar_datos_alumno_por_id(sesion:Session, id_alumno:int, alumno_esquema:esquemas.AlumnoBase):
     # 1.- Primero se verifica que el alumno exista
     alumno_bd = devuelve_alumnos_por_id(sesion, id_alumno) # objeto de la clase de la BD
     # 2.- Si existe, entonces se actualizan los datos
@@ -253,7 +253,7 @@ def devuelve_borrar_calificaciones_por_id(sesion:Session, id_cal):
 
 # Funcion para devolver datos actualizados de una calificacion dado un id
 # UPDATE app.calificaciones WHERE id_calificacion={id_cal}
-def devuelve_actualizar_datos_calificacion(sesion:Session, id_calificacion:int, calificacion_esquema:esquemas.CalificacionBase):
+def devuelve_actualizar_datos_calificacion_por_id(sesion:Session, id_calificacion:int, calificacion_esquema:esquemas.CalificacionBase):
     # 1.- Primero se verifica que la calificacion exista
     calificacion_bd = devuelve_calificaciones_por_id(sesion, id_calificacion) # objeto de la clase de la BD
     # 2.- Si existe, entonces se actualizan los datos
@@ -342,3 +342,27 @@ def devuelve_borrar_fotos_por_id(sesion:Session, id_fo):
         "mensaje": "foto borrada"
     }
     return respuesta
+
+
+
+#---------------Consultas UPDATE---------------#
+
+# Funcion para devolver datos actualizados de una foto dado un id
+# UPDATE app.foto WHERE id_foto={id_fo}
+def devuelve_actualizar_datos_foto_por_id(sesion:Session, id_foto:int, foto_esquema: esquemas.FotoBase):
+    # 1.- Primero se verifica que la foto exista
+    foto_bd = devuelve_fotos_por_id(sesion, id_foto) # objeto de la clase de la BD
+    # 2.- Si existe, entonces se actualizan los datos
+    if foto_bd is not None:
+        foto_bd.titulo = foto_esquema.titulo
+        foto_bd.descripcion = foto_esquema.descripcion
+    # 3.- Confirmar los cambios
+        sesion.commit()
+    # 4.- Refrescar/actualizar los cambios
+        sesion.refresh(foto_bd)
+    # 5.- Imprimir los datos nuevos
+        print(foto_esquema)
+        return (foto_esquema)
+    else:
+        respuesta = {"mensaje" : "No existe la foto"}
+        return respuesta

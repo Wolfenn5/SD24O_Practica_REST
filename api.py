@@ -17,6 +17,12 @@ import ORM.esquemas as esquemas
 # delete("/alumnos/{id}/calificaciones")
 # delete("/alumnos/{id}/fotos")
 # delete("/alumnos/{id})
+# post("/alumnos”)
+# post("/alumnos/{id}/calificaciones")
+# post("/alumnos/{id}/fotos")
+# put("/alumnos/{id})
+# put("/calificaciones/{id}")
+# put("/fotos/{id}")
 
 """
 usar commit:  “Versión final de la práctica REST2”
@@ -120,22 +126,22 @@ def borrar_calificaciones_de_alumno_por_id(id_alumno:int, sesion:Session=Depends
 # Peticion post("/alumnos”)
 @app.post("/alumnos")
 def alumno_nuevo(alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
-    print("Api insertando un alumno nuevo:")
+    print("Api insertando un alumno nuevo: ", alumno)
     return repo.devuelve_alumno_nuevo(sesion, alumno)
 
 
 # Peticion post("/alumnos/{id}/calificaciones")
 @app.post("/alumnos/{id}/calificaciones")
-def calificacion_nueva(id_alumno:int, calificacion:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
-    print(calificacion)
-    return repo.devuelve_calificacion_nueva(sesion, id_alumno, calificacion)
+def calificacion_nueva_por_id_de_alumno(id_alumno:int, calificacion:esquemas.CalificacionBase, sesion:Session=Depends(generador_sesion)):
+    print("Api insertando una calificacion nueva: ", calificacion)
+    return repo.devuelve_calificacion_nueva_por_id_de_alumno(sesion, id_alumno, calificacion)
 
 
 # Peticion post("/alumnos/{id}/fotos")
 @app.post("/alumnos/{id}/fotos")
-def foto_nueva(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
-    print(foto)
-    return repo.devuelve_foto_nueva(sesion, id_alumno, foto)
+def foto_nueva_por_id_de_alumno(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
+    print("Api insertando una foto nueva: ", foto)
+    return repo.devuelve_foto_nueva_por_id_de_alumno(sesion, id_alumno, foto)
 
 
 
@@ -144,8 +150,9 @@ def foto_nueva(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(gen
 
 # Peticion put("/alumnos/{id})  
 @app.put("/alumnos/{id}")
-def actualizar_datos_alumno(id_alumno:int, info_alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
-    return repo.devuelve_actualizar_datos_alumno(sesion, id_alumno, info_alumno)
+def actualizar_datos_alumno_por_id(id_alumno:int, info_alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
+    print("Api actualizando el alumno con id:", id_alumno)
+    return repo.devuelve_actualizar_datos_alumno_por_id(sesion, id_alumno, info_alumno)
 
 
 
@@ -187,8 +194,9 @@ def borrar_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(gen
 
 # Peticion put("/calificaciones/{id}")
 @app.put("/calificaciones/{id}")
-def actualizar_datos_calificacion(id_calificacion:int, info_calificacion:esquemas.CalificacionBase,sesion:Session=Depends(generador_sesion)):
-    return repo.devuelve_actualizar_datos_calificacion(sesion, id_calificacion, info_calificacion)
+def actualizar_datos_calificacion_por_id(id_calificacion:int, info_calificacion:esquemas.CalificacionBase,sesion:Session=Depends(generador_sesion)):
+    print("Api actualizando calificacion con id:", id_calificacion)
+    return repo.devuelve_actualizar_datos_calificacion_por_id(sesion, id_calificacion, info_calificacion)
 
 
 
@@ -229,7 +237,9 @@ def borrar_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
 
 #---------------Peticiones PUT---------------#
 
+# Peticion put("/fotos/{id}")
+@app.put("/fotos/{id}")
+def actualizar_datos_foto_por_id(id_foto:int, info_foto:esquemas.FotoBase, sesion:Session=Depends(generador_sesion)):
+    print("Api actualizando foto con id:", id_foto)
+    return repo.devuelve_actualizar_datos_foto_por_id(sesion, id_foto, info_foto)
 
-"""
-# put("/fotos/{id}")
-"""
