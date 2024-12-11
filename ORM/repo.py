@@ -153,7 +153,29 @@ def devuelve_foto_nueva(sesion:Session, id_alumno:int, foto_nueva:esquemas.FotoB
 
 #---------------Consultas UPDATE---------------#
 
-
+def devuelve_actualizar_datos_alumno(sesion:Session, id_alumno:int, alumno_esquema:esquemas.AlumnoBase):
+    # 1.- Primero se verifica que el alumno exista
+    alumno_bd = devuelve_alumnos_por_id(sesion, id_alumno) # objeto de la clase de la BD
+    # 2.- Si existe, entonces se actualizan los datos
+    if alumno_bd is not None:
+        alumno_bd.nombre = alumno_esquema.nombre   
+        alumno_bd.edad = alumno_esquema.edad
+        alumno_bd.domicilio = alumno_esquema.domicilio
+        alumno_bd.carrera = alumno_esquema.carrera
+        alumno_bd.trimestre = alumno_esquema.trimestre
+        alumno_bd.email = alumno_esquema.email
+        alumno_bd.password = alumno_esquema.password
+    # 3.- Confirmar los cambios
+        sesion.commit()
+    # 4.- Refrescar/actualizar los cambios
+        sesion.refresh(alumno_bd)
+    # 5.- Imprimir los datos nuevos
+        print(alumno_esquema)
+        return (alumno_esquema)
+    else:
+        respuesta = {"mensaje" : "No existe el alumno"}
+        return respuesta
+    
 
 #########################
 

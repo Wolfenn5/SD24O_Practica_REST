@@ -139,11 +139,11 @@ def foto_nueva(id_alumno:int, foto:esquemas.FotoBase, sesion:Session=Depends(gen
 
 
 #---------------Peticiones PUT---------------#
-"""
-# put("/alumnos/{id})
 
-"""
-
+# Peticion put("/alumnos/{id})  
+@app.put("/alumnos/{id}")
+def actualizar_datos_alumno(id_alumno:int, info_alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
+    return repo.devuelve_actualizar_datos_alumno(sesion, id_alumno, info_alumno)
 
 
 
