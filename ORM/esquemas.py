@@ -5,7 +5,7 @@ from pydantic import BaseModel
 # No se inlcuye la ruta, el id ni la fecha de registro porque no se quiere que el usuario pueda modificarlos
 
 # Definir el esquema usuario
-class UsuarioBase(BaseModel):
+class AlumnoBase(BaseModel):
     nombre:str
     edad:int
     domicilio:str

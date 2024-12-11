@@ -1,5 +1,6 @@
 import ORM.modelos as modelos # para traer las tablas que se mapearon de modelos.py
 from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
+import ORM.esquemas as esquemas
 
 
 # ---> Este archivo repo.py implementa las siguientes consultas SQL SELECT y DELETE
@@ -74,6 +75,36 @@ def devuelve_borrar_alumnos_por_id(sesion:Session, id_al:int):
         "mensaje": "alumno borrado"
     }
     return respuesta
+
+
+#---------------Consultas INSERT---------------#
+# Funcion para devolver un alumno nuevo 
+# INSERT INTO alumnos
+
+def devuelve_alumno_nuevo(sesion:Session, alumno_nuevo:esquemas.AlumnoBase): # alumno_nuevo es lo que se recibe del usuario
+    # 1.- Crear un nuevo objeto de la clase modelo Alumno
+    alumno_bd = modelos.Alumno()
+    # 2.- Llenar el nuevo objeto con los parametros que pasa el usuario
+    alumno_bd.nombre = alumno_nuevo.nombre   
+    alumno_bd.edad = alumno_nuevo.edad
+    alumno_bd.domicilio = alumno_nuevo.domicilio
+    alumno_bd.carrera = alumno_nuevo.carrera
+    alumno_bd.trimestre = alumno_nuevo.trimestre
+    alumno_bd.email = alumno_nuevo.email
+    alumno_bd.password = alumno_nuevo.password
+    # 3.- Insertar el nuevo objeto a la BD
+    sesion.add(alumno_bd)
+    # 4.- Confirmar los cambios
+    sesion.commit()
+    # 5.- Refrescar/actualizar los cambios
+    sesion.refresh(alumno_bd)
+    return alumno_bd
+
+
+
+
+
+#---------------Consultas PUT---------------#
 
 
 #########################

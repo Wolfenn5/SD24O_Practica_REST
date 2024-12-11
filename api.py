@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends # para manejo de sesiones
 from ORM.config import generador_sesion # generador de sesiones 
 import ORM.repo as repo # funciones para hacer consultas a la BD del archivo repo.py
 from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
-
+import ORM.esquemas as esquemas
 
 # ---> Este archivo api.py atiende las siguientes peticiones:
 
@@ -17,6 +17,10 @@ from sqlalchemy.orm import Session # para gestionar sesiones al hacer querys
 # delete("/alumnos/{id}/calificaciones")
 # delete("/alumnos/{id}/fotos")
 # delete("/alumnos/{id})
+
+"""
+usar commit:  “Versión final de la práctica REST2”
+"""
 
 
 # En las funciones, primero van los parametros obligatorios y luego los opcionales 
@@ -111,6 +115,30 @@ def borrar_calificaciones_de_alumno_por_id(id_alumno:int, sesion:Session=Depends
 
 
 
+#---------------Peticiones POST---------------#
+
+"""
+# Peticion post("/alumnos”)
+# post("/alumnos/{id}/calificaciones")
+# post("/alumnos/{id}/fotos")
+"""
+# Peticion post("/alumnos”)
+@app.post("/alumnos")
+def alumno_nuevo(alumno:esquemas.AlumnoBase,sesion:Session=Depends(generador_sesion)):
+    print("Api insertando un alumno nuevo:")
+    return repo.devuelve_alumno_nuevo(sesion, alumno)
+
+
+
+#---------------Peticiones PUT---------------#
+"""
+# put("/alumnos/{id})
+
+"""
+
+
+
+
 #########################
 
 # Calificaciones
@@ -144,6 +172,22 @@ def borrar_calificaciones_por_id(id_calificacion:int, sesion:Session=Depends(gen
 
 
 
+
+
+#---------------Peticiones POST---------------#
+
+
+
+
+
+
+
+#---------------Peticiones PUT---------------#
+"""
+# put("/calificaciones/{id}")
+"""
+
+
 #########################
 
 # Fotos
@@ -175,3 +219,12 @@ def lista_fotos(sesion:Session=Depends(generador_sesion)):
 def borrar_fotos_por_id(id_foto:int, sesion:Session=Depends(generador_sesion)):
     print("Api borrando foto con id:", id_foto)
     return repo.devuelve_borrar_fotos_por_id(sesion, id_foto)
+
+
+
+#---------------Peticiones PUT---------------#
+
+
+"""
+# put("/fotos/{id}")
+"""
