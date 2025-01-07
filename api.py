@@ -35,6 +35,15 @@ import ORM.esquemas as esquemas
 
 
 
+# Poetry resuelve dependencias de python y tambien sirve para subir proyectos a la nube
+
+# Si se utiliza render para desplegar REST 
+# python -m pipx --version      --> Para usar pipx al instalar cosas es necesario python -m
+# poetry env use python         --> Para activar el ambiente poetry
+# poetry lock                   --> Para crear el archivo poetry.lock
+
+
+
 # creación del servidor
 app = FastAPI()
 

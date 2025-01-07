@@ -23,7 +23,7 @@ import ORM.esquemas as esquemas
 # -----Tipos de filtro-----
 # .first()    muestra el primer elemento de la query que se hace
 # .all()      muestra todos los elementos de la query que se hace
-# .filer()    muestra los elementos de acuerdo a un criterio dado. Por ejemplo WHERE 
+# .filter()    muestra los elementos de acuerdo a un criterio dado. Por ejemplo WHERE 
 
 
 # -----------Tablas mapeadas-----------
