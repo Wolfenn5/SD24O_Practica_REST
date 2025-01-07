@@ -1,4 +1,3 @@
-from ORM.config import BaseClass # traer del archivo config.py la clase BaseClass (declarative_base) para poder mapear las tablas
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey # traer los tipos de dato que usa sqlalchemy
 import datetime # para calcular la hora actual del pc, porque la columna fecha_registro de la tabla alumnos es de tipo TIMESTAMP WITH TIME ZONE
 from sqlalchemy.ext.declarative import declarative_base # para crear BaseClass y poder mapear tablas
